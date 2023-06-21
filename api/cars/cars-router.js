@@ -30,15 +30,17 @@ router.get('/:id',mw.checkCarId,(req,res,next)=>{
 
 })
 
-router.post('/',async (req,res,next)=>{
+router.post('/',mw.checkCarPayload,mw.checkVinNumberValid,mw.checkVinNumberUnique, async (req,res,next)=>{
   try {
     const insertedCar = await carsModel.create(req.body)
     res.status(201).json(insertedCar);  
   } catch (error) {
     next(error)
+    
   }
 })
 //Errors
+
 
 //Exports
 
